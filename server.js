@@ -3,6 +3,8 @@
 
 // for HTTP request
 const axios = require('axios');
+// we want JSON by default
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 // for web framework
 const express = require('express');
@@ -32,7 +34,9 @@ app.use(session({
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', async function(request, response) {
-  let github, currentUser;
+  let viewData = {},
+      github, 
+      currentUser;
   
   // for OAuth authorzations
   const code = request.query.code;
@@ -51,7 +55,10 @@ app.get('/', async function(request, response) {
     console.log(token.data);
     
     // preserve token in session storage
-    request.session.token = token.data;
+    request.session.token = token.data.access_token;
+    
+    // redirect home
+    return response.redirect('/');
   } 
   
   if (request.session.token) {
@@ -60,17 +67,18 @@ app.get('/', async function(request, response) {
       auth: request.session.token
     });
     currentUser = await github.users.getAuthenticated();
+    viewData.user = currentUser.data;
   }
 
   // render and send the page
   response.send(nunjucks.render(
     'views/index.html',
     {
-      'user': currentUser,
       'state': request.query.state || false, 
       'title': process.env.TITLE,
       'installation_id': request.query.installation_id,
       'setup_action': request.query.setup_action,
+      ...viewData
     }
   ));
 });
