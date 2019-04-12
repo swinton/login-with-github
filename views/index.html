@@ -66,7 +66,13 @@
       <form>
         <input name="state" type="text" maxlength="100" placeholder="State!" aria-labelledby="submit-state">
         <button type="submit" id="submit-state">Install GitHub App</button>
-      </form>            
+      </form>
+      
+      {% if state %}
+      <section class="state">
+      State: <tt>{{ state }}</tt>
+      </section>
+      {% endif %}
     </main>
 
     <footer>
