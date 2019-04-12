@@ -29,6 +29,7 @@ app.use(session({
     path: '/app/.data',
     ttl: 86400,
   }),
+  resave: false,
   secret: process.env.SESSION_STORE_SECRET
 }));
 
@@ -63,7 +64,7 @@ app.get('/', async function(request, response) {
 });
 
 // for completing OAuth authorization flow
-app.get('/connect', async function(request, response) {
+app.get('/sup', async function(request, response) {
   const code = request.query.code;
   const state = request.query.state;
   if (code && state) {
