@@ -3,6 +3,9 @@
 
 console.log('hello world :o');
 
+// Our 
+const appSlug = 'plans';
+
 // our default state
 const states = [];
 
@@ -28,11 +31,16 @@ statesForm.onsubmit = function(event) {
   // stop our form submission from refreshing the page
   event.preventDefault();
 
+  const newState = stateInput.value;
+  
   // get dream value and add it to the list
-  states.push(stateInput.value);
-  appendNewState(stateInput.value);
+  states.push(newState);
+  appendNewState(newState);
 
   // reset form 
   stateInput.value = '';
   stateInput.focus();
+  
+  // redirect
+  location.assign(`https://github.com/apps/${appSlug}/installations/new?state=${encodeURIComponent(newState)}`);
 };

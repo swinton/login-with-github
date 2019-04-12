@@ -39,7 +39,11 @@
       </form>
       
       <section class="states">
-        <ul id="states"></ul>
+        <ul id="states">
+          {% if state %}
+          <li>{{ state }}</li>
+          {% endif %}
+        </ul>
       </section>
     </main>
 

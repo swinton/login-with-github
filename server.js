@@ -16,7 +16,7 @@ app.use(express.static('public'));
 app.get('/', function(request, response) {
   response.send(nunjucks.render(
     'views/index.html',
-    {'state':'default', 'title':process.env.TITLE}
+    { 'state': request.query.state || false, 'title':process.env.TITLE }
   ));
 });
 
