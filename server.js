@@ -4,6 +4,7 @@
 // init project
 const express = require('express');
 const app = express();
+const nunjucks = require('nunjucks');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -13,7 +14,10 @@ app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+  response.send(nunjucks.render(
+    'views/index.html',
+    {'state':'default', 'title':process.env.TITLE}
+  ));
 });
 
 // listen for requests :)
