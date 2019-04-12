@@ -45,6 +45,12 @@
           {% endif %}
         </ul>
       </section>
+      
+      {% if user %}
+      <pre>
+      {{ user | dump }}
+      </pre>
+      {% endif %}
     </main>
 
     <footer>

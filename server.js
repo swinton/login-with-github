@@ -31,34 +31,42 @@ app.use(session({
 }));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  if (request.session.views) {
-    request.session.views += 1;
-  } else {
-    request.session.views = 1;
-  }
+app.get('/', async function(request, response) {
+  let github, currentUser;
   
   // for OAuth authorzations
   const code = request.query.code;
   const state = request.query.state;
   if (code && state) {
     // exchange for token
-    axios.post('https://github.com/login/oauth/access_token', {
+    // per, https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
+    const token = await axios.post('https://github.com/login/oauth/access_token', {
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
       code: code,
-      state: 
+      state: state,
+      redirect_uri: process.env.REDIRECT_URI
     });
+
+    console.log(token.data);
+    
+    // preserve token in session storage
+    request.session.token = token.data;
   } 
   
   if (request.session.token) {
     // instantiate client with token
+    github = new Octokit({
+      auth: request.session.token
+    });
+    currentUser = await github.users.getAuthenticated();
   }
 
   // render and send the page
   response.send(nunjucks.render(
     'views/index.html',
     {
+      'user': currentUser,
       'state': request.query.state || false, 
       'title': process.env.TITLE,
       'installation_id': request.query.installation_id,
