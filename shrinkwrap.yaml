@@ -3,6 +3,7 @@ dependencies:
   express: 4.16.4
   express-session: 1.16.1
   nunjucks: 3.2.0
+  session-file-store: 1.2.0
 packages:
   /@octokit/endpoint/4.0.0:
     dependencies:
@@ -128,6 +129,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+  /bagpipe/0.3.5:
+    dev: false
+    resolution:
+      integrity: sha1-40HRZPyyTN8E6n4Ft2XsEMiupqE=
   /base/0.11.2:
     dependencies:
       cache-base: 1.0.1
@@ -597,6 +602,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
+  /fs-extra/4.0.3:
+    dependencies:
+      graceful-fs: 4.1.15
+      jsonfile: 4.0.0
+      universalify: 0.1.2
+    dev: false
+    resolution:
+      integrity: sha512-q6rbdDd1o2mAnQreO7YADIxf/Whx4AHBiRf6d+/cVT8h44ss+lHgxf1FemcqDnQt9X3ct4McHr+JMGlYSsK7Cg==
   /fsevents/1.2.7:
     bundledDependencies:
       - node-pre-gyp
@@ -634,7 +647,6 @@ packages:
       integrity: sha1-nmr2KZ2NO9K9QEMIMr0RPfkGxa4=
   /graceful-fs/4.1.15:
     dev: false
-    optional: true
     resolution:
       integrity: sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
   /has-value/0.3.1:
@@ -695,6 +707,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-neyTUVFtahjf0mB3dZT77u+8O0QB89jFdnBkd5P1JgYPbPaia3gXXOVL2fq8VyU2gMMD7SaN7QukTB/pmXYvDA==
+  /imurmurhash/0.1.4:
+    dev: false
+    engines:
+      node: '>=0.8.19'
+    resolution:
+      integrity: sha1-khi5srkoojixPcT7a21XbyMUU+o=
   /inherits/2.0.3:
     dev: false
     resolution:
@@ -886,6 +904,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+  /jsonfile/4.0.0:
+    dev: false
+    optionalDependencies:
+      graceful-fs: 4.1.15
+    resolution:
+      integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
   /kind-of/3.2.2:
     dependencies:
       is-buffer: 1.1.6
@@ -1113,6 +1137,12 @@ packages:
       chokidar: 2.1.5
     resolution:
       integrity: sha512-YS/qEQ6N7qCnUdm6EoYRBfJUdWNT0PpKbbRnogV2XyXbBm2STIP1O6yrdZHgwMVK7fIYUx7i8+yatEixnXSB1w==
+  /object-assign/4.1.1:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
   /object-copy/0.1.0:
     dependencies:
       copy-descriptor: 0.1.1
@@ -1346,6 +1376,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
+  /retry/0.10.1:
+    dev: false
+    resolution:
+      integrity: sha1-52OI0heZLCUnUCQdPTlW/tmNj/Q=
   /safe-buffer/5.1.2:
     dev: false
     resolution:
@@ -1397,6 +1431,18 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-p/tdJrO4U387R9oMjb1oj7qSMaMfmOyd4j9hOFoxZe2baQszgHcSWjuya/CiT5kgZZKRudHNOA0pYXOl8rQ5nw==
+  /session-file-store/1.2.0:
+    dependencies:
+      bagpipe: 0.3.5
+      fs-extra: 4.0.3
+      object-assign: 4.1.1
+      retry: 0.10.1
+      write-file-atomic: 1.3.1
+    dev: false
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha512-DkYLYFkkK6u9xyraVHemulhlUuuufLukf7SQxOZSx8SPwkswcaIrls882PaQZ72zRKsyhUVNxOUl9w0lQubUFw==
   /set-value/0.4.3:
     dependencies:
       extend-shallow: 2.0.1
@@ -1443,6 +1489,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+  /slide/1.1.6:
+    dev: false
+    resolution:
+      integrity: sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
   /snapdragon-node/2.1.1:
     dependencies:
       define-property: 1.0.0
@@ -1630,6 +1680,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-eRHEHhChCBHrZsA4WEhdgiOKgdvgrMIHwnwnqD0r5C6AO8kwKcG7qSku3iXdhvHL3YvsS9ZkSGN8h/hIpoFC8g==
+  /universalify/0.1.2:
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
   /unpipe/1.0.0:
     dev: false
     engines:
@@ -1721,6 +1777,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+  /write-file-atomic/1.3.1:
+    dependencies:
+      graceful-fs: 4.1.15
+      imurmurhash: 0.1.4
+      slide: 1.1.6
+    dev: false
+    resolution:
+      integrity: sha1-fUW6MjFjKN0ex9kPYOvA2EW7dZo=
   /y18n/3.2.1:
     dev: false
     resolution:
@@ -1745,3 +1809,4 @@ specifiers:
   express: ^4.16.4
   express-session: ^1.16.1
   nunjucks: ^3.2.0
+  session-file-store: ^1.2.0
