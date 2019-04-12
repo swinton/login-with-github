@@ -46,5 +46,5 @@ statesForm.onsubmit = function(event) {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-  stateInput.value = 'gimme-some-state';
+  stateInput.value = 'state';
 });

@@ -16,6 +16,12 @@ const FileStore = require('session-file-store')(session);
 
 // for template rendering
 const nunjucks = require('nunjucks');
+nunjucks.configure('/app/views', {
+  express: app,
+  autoescape: true,
+  noCache: true
+});
+app.set('view engine', 'html');
 
 // for GitHub API
 const Octokit = require('@octokit/rest');
@@ -50,19 +56,16 @@ app.get('/', async function(request, response) {
     
     // expose authenticated user to template via viewData
     viewData.user = currentUser.data;
+    
+    // 
   }
 
   // render and send the page
-  const rendered = nunjucks.render(
-    'views/index.html',
-    {
-      'state': request.query.state || false, 
-      'title': process.env.TITLE,
-      ...viewData
-    }
-  );
-  console.log(rendered);
-  response.send(rendered);
+  response.render('index', {
+    'state': request.query.state || false, 
+    'title': process.env.TITLE,
+    ...viewData
+  });
 });
 
 // for completing OAuth authorization flow
