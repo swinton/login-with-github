@@ -71,6 +71,21 @@ app.get('/', async function(request, response) {
   });
 });
 
+app.get('/login', async function(request, response) {
+  // generate a random state
+  const state = 
+
+  return response.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}`);
+});
+
+app.get('/logout', async function(request, response) {
+  // delete the token
+  delete request.session.token;
+  
+  // go home
+  return response.redirect(`/`);
+});
+
 // for completing OAuth authorization flow
 app.get('/sup', async function(request, response) {
   const code = request.query.code;
@@ -97,14 +112,6 @@ app.get('/sup', async function(request, response) {
   
   // not found
   response.status(404).send('Not found');
-});
-
-app.get('/logout', async function(request, response) {
-  // delete the token
-  delete request.session.token;
-  
-  // go home
-  return response.redirect(`/`);
 });
 
 // listen for requests :)
