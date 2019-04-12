@@ -14,7 +14,8 @@
     "nunjucks": "^3.2.0",
     "@octokit/rest": "^16.2.0",
     "express-session": "^1.16.1",
-    "session-file-store": "^1.2.0"
+    "session-file-store": "^1.2.0",
+    "axios": "^0.18.0"
   },
   "engines": {
     "node": "8.x"
