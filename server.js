@@ -1,9 +1,12 @@
 // server.js
 // where your node app starts
 
+// for OAuth authorization "state" generation
+const crypto = require('crypto');
+
 // for HTTP request
 const axios = require('axios');
-// we want JSON by default
+// (...we want JSON by default)
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 // for web framework
@@ -73,9 +76,12 @@ app.get('/', async function(request, response) {
 
 app.get('/login', async function(request, response) {
   // generate a random state
-  const state = 
+  const state = crypto.createHmac('sha1', process.env.CLIENT_SECRET)
+    .update(Math.random().toString())
+    .digest('hex').substring(0, 8);
 
-  return response.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}`);
+  return response.redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&state=${state}`);
 });
 
 app.get('/logout', async function(request, response) {
@@ -90,7 +96,7 @@ app.get('/logout', async function(request, response) {
 app.get('/sup', async function(request, response) {
   const code = request.query.code;
   const state = request.query.state;
-  if (code && state) {
+  if (code) {
     // exchange for token
     // per, https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
     const token = await axios.post('https://github.com/login/oauth/access_token', {
