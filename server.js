@@ -16,17 +16,28 @@ app.use(express.static('public'));
 
 // init our file-based session storage
 app.use(session({
-    store: new FileStore({
-    
-    }),
-    secret: 'keyboard cat'
+  store: new FileStore({
+    path: '/app/.data',
+    ttl: 86400,
+  }),
+  secret: process.env.SESSION_STORE_SECRET
 }));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
+  if (request.session.views) {
+    request.session.views += 1;
+  } else {
+    request.session.views = 1;
+  }
+  
+  
+  // render and send the page
   response.send(nunjucks.render(
     'views/index.html',
-    { 'state': request.query.state || false, 'title':process.env.TITLE }
+    {
+      'state': request.query.state || false, 
+      'title':process.env.TITLE }
   ));
 });
 
