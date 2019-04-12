@@ -4,6 +4,7 @@
 // init project
 const express = require('express');
 const app = express();
+const session = require('express-session');
 const nunjucks = require('nunjucks');
 
 // we've started you off with Express, 
