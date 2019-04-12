@@ -33,26 +33,38 @@
     <main>  
       {% if user %}
       <section class="current-user">
-      <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a> is logged in!
+      <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a> is logged in! | <a href="/logout">logout</a>
       </section>
+      <pre class="debug">
+      {{ user | dump }}
+      </pre>
       <section class="clear"></section>
       {% endif %}
-
-      <p>Current state:</p>
       
+      {% if installations %}
+      <h2>
+        Installations
+      </h2>
+      <section class="installations">
+        <ul id="installations">
+          {% for installation in installations.installations %}
+          <li>{{ installation.account.login }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      <pre class="debug">
+      {{ installations | dump }}
+      </pre>
+      {% endif %}
+
+      <h2>
+        New installation
+      </h2>
+            
       <form>
         <input name="state" type="text" maxlength="100" placeholder="State!" aria-labelledby="submit-state">
         <button type="submit" id="submit-state">Install GitHub App</button>
-      </form>
-      
-      <section class="states">
-        <ul id="states">
-          {% if state %}
-          <li>{{ state }}</li>
-          {% endif %}
-        </ul>
-      </section>
-      
+      </form>            
     </main>
 
     <footer>

@@ -42,8 +42,7 @@ app.use(session({
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', async function(request, response) {
   let viewData = {},
-      github, 
-      currentUser;
+      github;
 
   if (request.session.token) {
     // instantiate client with token
@@ -52,12 +51,16 @@ app.get('/', async function(request, response) {
     });
     
     // get authenticated user
-    currentUser = await github.users.getAuthenticated();
+    const currentUser = await github.users.getAuthenticated();
     
     // expose authenticated user to template via viewData
     viewData.user = currentUser.data;
     
-    // 
+    // list installations available to user
+    const installations = await github.apps.listInstallationsForAuthenticatedUser();
+
+    // expose authenticated user to template via viewData
+    viewData.installations = installations.data;
   }
 
   // render and send the page
