@@ -47,7 +47,15 @@
       </section>
       
       {% if user %}
-      <img src="https://github.com/swinton.png" height="80" />
+      <script>
+      window.currentUser = {{ user | dump }};
+      </script>
+      <section class="current-user">
+        {{ user.login }}
+        <pre class="debug">
+        {{ user | dump }}
+        </pre>
+      </section>
       {% endif %}
     </main>
 
