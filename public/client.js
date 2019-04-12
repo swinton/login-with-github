@@ -3,7 +3,7 @@
 
 console.log('hello world :o');
 
-// Our 
+// Our GitHub App "slug"
 const appSlug = 'plans';
 
 // our default state
@@ -44,3 +44,7 @@ statesForm.onsubmit = function(event) {
   // redirect
   location.assign(`https://github.com/apps/${appSlug}/installations/new?state=${encodeURIComponent(newState)}`);
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+  stateInput.value = 'gimme-some-state';
+});
