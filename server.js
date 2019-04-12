@@ -5,6 +5,7 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const nunjucks = require('nunjucks');
 
 // we've started you off with Express, 
@@ -12,6 +13,14 @@ const nunjucks = require('nunjucks');
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
+
+// init our file-based session storage
+app.use(session({
+    store: new FileStore({
+    
+    }),
+    secret: 'keyboard cat'
+}));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
