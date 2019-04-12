@@ -37,8 +37,33 @@ app.get('/', async function(request, response) {
   let viewData = {},
       github, 
       currentUser;
-  
-  // for OAuth authorzations
+
+  if (request.session.token) {
+    // instantiate client with token
+    github = new Octokit({
+      auth: request.session.token
+    });
+    
+    // get authenticated user
+    currentUser = await github.users.getAuthenticated();
+    
+    // expose authenticated user to template via viewData
+    viewData.user = currentUser.data;
+  }
+
+  // render and send the page
+  response.send(nunjucks.render(
+    'views/index.html',
+    {
+      'state': request.query.state || false, 
+      'title': process.env.TITLE,
+      ...viewData
+    }
+  ));
+});
+
+// for completing OAuth authorization flow
+app.get('/connect', async function(request, response) {
   const code = request.query.code;
   const state = request.query.state;
   if (code && state) {
@@ -57,30 +82,12 @@ app.get('/', async function(request, response) {
     // preserve token in session storage
     request.session.token = token.data.access_token;
     
-    // redirect home
-    return response.redirect('/');
-  } 
-  
-  if (request.session.token) {
-    // instantiate client with token
-    github = new Octokit({
-      auth: request.session.token
-    });
-    currentUser = await github.users.getAuthenticated();
-    viewData.user = currentUser.data;
+    // redirect home, preserve state
+    return response.redirect(`/?state=${state}`);
   }
-
-  // render and send the page
-  response.send(nunjucks.render(
-    'views/index.html',
-    {
-      'state': request.query.state || false, 
-      'title': process.env.TITLE,
-      'installation_id': request.query.installation_id,
-      'setup_action': request.query.setup_action,
-      ...viewData
-    }
-  ));
+  
+  // not found
+  response.status(404).send('Not found');
 });
 
 // listen for requests :)

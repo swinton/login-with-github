@@ -47,14 +47,8 @@
       </section>
       
       {% if user %}
-      <script>
-      window.currentUser = {{ user | dump }};
-      </script>
       <section class="current-user">
-        {{ user.login }}
-        <pre class="debug">
-        {{ user | dump }}
-        </pre>
+      {{ user.login }}
       </section>
       {% endif %}
     </main>
