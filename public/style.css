@@ -71,6 +71,14 @@ footer {
   border-top: 1px solid lightgrey;
 }
 
+.current-user {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
 .debug {
   display: none;
 }

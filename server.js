@@ -53,14 +53,16 @@ app.get('/', async function(request, response) {
   }
 
   // render and send the page
-  response.send(nunjucks.render(
+  const rendered = nunjucks.render(
     'views/index.html',
     {
       'state': request.query.state || false, 
       'title': process.env.TITLE,
       ...viewData
     }
-  ));
+  );
+  console.log(rendered);
+  response.send(rendered);
 });
 
 // for completing OAuth authorization flow
@@ -89,6 +91,14 @@ app.get('/sup', async function(request, response) {
   
   // not found
   response.status(404).send('Not found');
+});
+
+app.get('/logout', async function(request, response) {
+  // delete the token
+  delete request.session.token;
+  
+  // go home
+  return response.redirect(`/`);
 });
 
 // listen for requests :)

@@ -26,16 +26,23 @@
   <body>
     <header>
       <h1>
-        Install / Update App, with State
+        GitHub App Demo
       </h1>
     </header>
 
-    <main>      
+    <main>  
+      {% if user %}
+      <section class="current-user">
+      <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a> is logged in!
+      </section>
+      <section class="clear"></section>
+      {% endif %}
+
       <p>Tell me your state:</p>
       
       <form>
         <input name="state" type="text" maxlength="100" placeholder="State!" aria-labelledby="submit-state">
-        <button type="submit" id="submit-state">Install or Update with State</button>
+        <button type="submit" id="submit-state">Install App</button>
       </form>
       
       <section class="states">
@@ -46,11 +53,6 @@
         </ul>
       </section>
       
-      {% if user %}
-      <section class="current-user">
-      <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a> is logged in
-      </section>
-      {% endif %}
     </main>
 
     <footer>
