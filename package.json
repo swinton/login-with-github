@@ -15,7 +15,8 @@
     "@octokit/rest": "^16.2.0",
     "express-session": "^1.16.1",
     "session-file-store": "^1.2.0",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "lodash": 
   },
   "engines": {
     "node": "8.x"
