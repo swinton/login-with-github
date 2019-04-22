@@ -55,6 +55,7 @@ app.get('/', async function(request, response) {
     
     // get authenticated user
     const currentUser = await github.users.getAuthenticated();
+    console.log('current user: %j', currentUser);
     
     // expose authenticated user to template via viewData
     viewData.user = currentUser.data;
@@ -107,7 +108,7 @@ app.get('/sup', async function(request, response) {
       redirect_uri: process.env.REDIRECT_URI
     });
 
-    console.log(token.data);
+    console.log('preserving token: %j', token.data);
     
     // preserve token in session storage
     request.session.token = token.data.access_token;

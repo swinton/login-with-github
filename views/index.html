@@ -30,10 +30,19 @@
       </h1>
     </header>
 
-    <main>                    
-      <form method="get">
+    <main>
+      {% if user %}
+      <div>
+      👋 <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a>
+      </div>
+      <form method="get" action="/logout">
+        <button type="submit" id="submit-state">Logout</button>
+      </form>
+      {% else %}
+      <form method="get" action="/login">
         <button type="submit" id="submit-state">Login</button>
       </form>
+      {% endif %}
     </main>
 
     <footer>
