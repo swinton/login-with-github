@@ -71,16 +71,6 @@ footer {
   border-top: 1px solid lightgrey;
 }
 
-.state {
-  margin-top: 50px;
-  padding-top: 25px;
-  border-top: 1px solid lightgrey;
-}
-
-.current-user {
-  float: right;
-}
-
 .clear {
   clear: both;
 }

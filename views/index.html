@@ -11,7 +11,7 @@
 <html lang="en">
   <head>
     <title>{{ title }}</title>
-    <meta name="description" content="Install / Update App, with State">
+    <meta name="description" content="Login with GitHub">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,54 +26,14 @@
   <body>
     <header>
       <h1>
-        GitHub App Demo
+        Login with GitHub
       </h1>
     </header>
 
-    <main>  
-      <section class="current-user">
-      {% if user %}
-      <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a> is logged in! | <a href="/logout">logout</a>
-      <pre class="debug">
-      {{ user | dump }}
-      </pre>
-      {% else %}
-      <a href="/login">login</a>
-      {% endif %}
-      </section>
-      <section class="clear"></section>
-      
-      {% if installations %}
-      <h2>
-        Installations
-      </h2>
-      <section class="installations">
-        <ul id="installations">
-          {% for installation in installations.installations %}
-          <li>{{ installation.account.login }} | <a href="https://github.com/apps/plans/installations/new/permissions?suggested_target_id={{ installation.account.id }}
-?state=edit-{{ installation.id }}">edit</a></li>
-          {% endfor %}
-        </ul>
-      </section>
-      <pre class="debug">
-      {{ installations | dump }}
-      </pre>
-      {% endif %}
-
-      <h2>
-        New installation
-      </h2>
-            
-      <form>
-        <input name="state" type="text" maxlength="100" placeholder="State!" aria-labelledby="submit-state">
-        <button type="submit" id="submit-state">Install GitHub App</button>
+    <main>                    
+      <form method="get">
+        <button type="submit" id="submit-state">Login</button>
       </form>
-      
-      {% if state %}
-      <section class="state">
-      State: <tt>{{ state }}</tt>
-      </section>
-      {% endif %}
     </main>
 
     <footer>
