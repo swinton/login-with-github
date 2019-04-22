@@ -3,6 +3,7 @@ dependencies:
   axios: 0.18.0
   express: 4.16.4
   express-session: 1.16.1
+  lodash: 4.17.11
   nunjucks: 3.2.0
   session-file-store: 1.2.0
 packages:
@@ -983,6 +984,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
+  /lodash/4.17.11:
+    dev: false
+    resolution:
+      integrity: sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
   /macos-release/2.2.0:
     dev: false
     engines:
@@ -1834,5 +1839,6 @@ specifiers:
   axios: ^0.18.0
   express: ^4.16.4
   express-session: ^1.16.1
+  lodash: 4.17.11
   nunjucks: ^3.2.0
   session-file-store: ^1.2.0

@@ -16,7 +16,7 @@
     "express-session": "^1.16.1",
     "session-file-store": "^1.2.0",
     "axios": "^0.18.0",
-    "lodash": 
+    "lodash": "4.17.11"
   },
   "engines": {
     "node": "8.x"

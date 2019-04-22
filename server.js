@@ -9,6 +9,9 @@ const axios = require('axios');
 // (...we want JSON by default)
 axios.defaults.headers.common['Accept'] = 'application/json';
 
+// for general utilities
+const _ = require('lodash');
+
 // for web framework
 const express = require('express');
 const app = express();
@@ -130,10 +133,11 @@ app.get('/register', async function(request, response) {
     
     // get user emails
     const emails = await github.users.listEmails();
-    console.log('emails for user: %j', emails.data);
     
     // get primary email
-    
+    const primary = _(emails.data).filter({primary: true}).head();
+    console.log('primary email for user: %j', primary.email);
+
     return response.redirect('/?registered=true');
   } else {
     return response.redirect('/login');
