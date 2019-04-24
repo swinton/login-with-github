@@ -1,6 +1,38 @@
 // server.js
 // where your node app starts
 
+// for web framework
+const express = require('express');
+const app = express();
+
+// nunjucks for template rendering
+// https://mozilla.github.io/nunjucks/getting-started.html
+const nunjucks = require('nunjucks');
+nunjucks.configure('/app/views', {
+  express: app,
+  autoescape: true,
+  noCache: true
+});
+app.set('view engine', 'html');
+
+// http://expressjs.com/en/starter/static-files.html
+app.use(express.static('public'));
+
+// init our file-based session storage
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+app.use(session({
+  store: new FileStore({
+    path: '/app/.data',
+    ttl: 86400,
+  }),
+  resave: false,
+  secret: process.env.SESSION_STORE_SECRET
+}));
+
+// for GitHub API
+const Octokit = require('@octokit/rest');
+
 // for OAuth authorization "state" generation
 const crypto = require('crypto');
 
@@ -11,39 +43,6 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 
 // for general utilities
 const _ = require('lodash');
-
-// for web framework
-const express = require('express');
-const app = express();
-
-// for session storage
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
-
-// for template rendering
-const nunjucks = require('nunjucks');
-nunjucks.configure('/app/views', {
-  express: app,
-  autoescape: true,
-  noCache: true
-});
-app.set('view engine', 'html');
-
-// for GitHub API
-const Octokit = require('@octokit/rest');
-
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
-
-// init our file-based session storage
-app.use(session({
-  store: new FileStore({
-    path: '/app/.data',
-    ttl: 86400,
-  }),
-  resave: false,
-  secret: process.env.SESSION_STORE_SECRET
-}));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', async function(request, response) {
@@ -62,12 +61,6 @@ app.get('/', async function(request, response) {
     
     // expose authenticated user to template via viewData
     viewData.user = currentUser.data;
-    
-    // list installations available to user
-    const installations = await github.apps.listInstallationsForAuthenticatedUser();
-
-    // expose authenticated user to template via viewData
-    viewData.installations = installations.data;
   }
 
   // render and send the page
