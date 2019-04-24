@@ -15,21 +15,34 @@
     <!-- import the webpage's client-side javascript file -->
     <script src="/client.js" defer></script>
   </head>
-  <body>
-
+  <body class="m-6">
     
     <div class="container-lg clearfix">
-  <div class="col-12 float-left border p-4">
-    My column
-  </div>
-</div>
+      
+      <div class="col-8 float-left">
+        <h1>
+          Login with GitHub
+        </h1>
+      </div>
+      
+      <div class="col-4 float-right">
+        
+        {% if user %}
+        
+        👋 Welcome, <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a>
+        
+        {% else %}
+        
+        <form method="get" action="/login">
+          <button type="submit" class="btn btn-large btn-primary" role="button">Login</button>
+        </form>
+        
+        {% endif %}
+      </div>
+      
+    </div>
 
-    <header class="pagehead">
-      <h1>
-        Login with GitHub
-      </h1>
-    </header>
-
+        
     <main>
       {% if user %}
       <div>
@@ -39,9 +52,6 @@
         <button type="submit">Logout</button>
       </form>
       {% else %}
-      <form method="get" action="/login">
-        <button type="submit">Login</button>
-      </form>
       {% endif %}
     </main>
 
