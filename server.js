@@ -65,7 +65,6 @@ app.get('/', async function(request, response) {
 
   // render and send the page
   response.render('index', {
-    'state': request.query.state || false, 
     'title': process.env.TITLE,
     ...viewData
   });
