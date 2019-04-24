@@ -117,26 +117,6 @@ app.get('/sup', async function(request, response) {
   response.status(404).send('Not found');
 });
 
-app.get('/register', async function(request, response) {
-  if (request.session.token) {
-    // instantiate client with token
-    const github = new Octokit({
-      auth: request.session.token
-    });
-    
-    // get user emails
-    const emails = await github.users.listEmails();
-    
-    // get primary email
-    const primary = _(emails.data).filter({primary: true}).head();
-    console.log('primary email for user: %j', primary.email);
-
-    return response.redirect('/?registered=true');
-  } else {
-    return response.redirect('/login');
-  }
-});
-
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
