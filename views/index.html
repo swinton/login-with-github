@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- import the webpage's stylesheet -->
-<!--     <link rel="stylesheet" href="/style.css"> -->
     <link href="https://unpkg.com/primer/build/build.css" rel="stylesheet">
 
     <!-- import the webpage's client-side javascript file -->
@@ -20,16 +19,28 @@
     <div class="container-lg clearfix">
       
       <div class="col-8 float-left">
+        
         <h1>
+          {% if user %}
+          
+          👋 Welcome, <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a>
+
+          {% else %}
+          
           Login with GitHub
+          
+          {% endif %}
         </h1>
+        
       </div>
       
       <div class="col-4 float-right">
         
         {% if user %}
         
-        👋 Welcome, <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a>
+        <form method="get" action="/logout">
+          <button type="submit" class="btn btn-large btn-primary" role="button">Logout</button>
+        </form>
         
         {% else %}
         
@@ -41,23 +52,6 @@
       </div>
       
     </div>
-
-        
-    <main>
-      {% if user %}
-      <div>
-      👋 Welcome, <a href="https://github.com/{{ user.login }}">@{{ user.login }}</a>
-      </div>
-      <form method="get" action="/logout">
-        <button type="submit">Logout</button>
-      </form>
-      {% else %}
-      {% endif %}
-    </main>
-
-    <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
-    </footer>
 
     <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->

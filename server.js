@@ -109,8 +109,8 @@ app.get('/sup', async function(request, response) {
     // preserve token in session storage
     request.session.token = token.data.access_token;
     
-    // redirect home, preserve state
-    return response.redirect(`/?state=${state}`);
+    // redirect home
+    return response.redirect(`/`);
   }
   
   // not found
