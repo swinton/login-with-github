@@ -19,4 +19,6 @@ container=$( docker run --name login-with-github \
   --env-file ./.env \
   login-with-github )
 
+open http://localhost:$port/
+
 docker logs --follow $container
