@@ -13,7 +13,7 @@ docker rm login-with-github > /dev/null > /dev/null 2>&1
 echo "Running. To stop:\ndocker stop --time 0 login-with-github"
 
 # Run the container
-container=$( docker run --name login-with-github \
+container=$( docker run --rm --name login-with-github \
   -p $port:8000 \
   --detach \
   --env-file ./.env \
